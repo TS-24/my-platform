@@ -1,0 +1,36 @@
+ # Java / Gradle
+  .gradle/
+  build/
+  out/
+  *.class
+  *.log
+
+  # Node / React / Vite
+  node_modules/
+  dist/
+  .vite/
+  coverage/
+  *.tsbuildinfo
+
+  # IntelliJ IDEA
+  .idea/
+  *.iml
+  *.iws
+  *.ipr
+
+  # Environment files and private keys
+  .env
+  .env.*
+  !.env.example
+  !.env.sample
+  *.pem
+  *.key
+  *.p12
+  *.pfx
+
+  # macOS / Windows / Linux
+  .DS_Store
+  ._*
+  Thumbs.db
+  Desktop.ini
+  *
