@@ -1,17 +1,16 @@
 import './App.css'
+import portrait from './assets/timothy-shin-waterfront-selfie.jpg'
+
 function App() {
-return (
-<main>
-<h1>Timothy Shin</h1>
-<h2>Senior Capstone Production Platform</h2>
-<p>
-This site will present my software projects, engineering decisions,
-and production systems.
-</p>
-<p>Initial frontend setup in progress.</p>
-<p>I build with TypeScript and Python, and VS Code is my editor of choice.</p>
-<p>Im on <a href="https://github.com/TS-24">GitHub (@TS-24)</a>.</p>
-</main>
-)
+  return (
+    <main className="profile">
+      <div className="profile-intro">
+        <h1>Timothy Shin</h1>
+        <p>I"m a student currently studying Computer Science at Grove City College. </p>
+      </div>
+      <img src={portrait} alt="Timothy Shin at the waterfront at dusk" width={300} />
+    </main>
+  )
 }
+
 export default App
