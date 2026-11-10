@@ -271,6 +271,33 @@
   transform: translateY(calc(60svh * (1 - var(--projects-progress))));
 }
 
+.projects-section[aria-hidden='false'] .project-visual {
+  pointer-events: auto;
+}
+
+.project-preview:focus-visible {
+  outline: 1px solid #0005;
+  outline-offset: 8px;
+}
+
+.projects-details p {
+  color: #000;
+  opacity: .6;
+  transition: opacity 700ms ease;
+}
+.projects-details .personal-state { opacity: .3; }
+.projects-details .personal-city { opacity: .5; }
+
+.personal-card:has(.project-visual:hover, .project-preview:focus-visible) .projects-details p {
+  opacity: .2;
+}
+
+.personal-card:has([data-project='senior'] .project-visual:hover, .project-preview[data-project='senior']:focus-visible) .projects-details [data-project='senior'],
+.personal-card:has([data-project='restyle'] .project-visual:hover, .project-preview[data-project='restyle']:focus-visible) .projects-details [data-project='restyle'],
+.personal-card:has([data-project='folio'] .project-visual:hover, .project-preview[data-project='folio']:focus-visible) .projects-details [data-project='folio'] {
+  opacity: 1;
+}
+
 .projects-heading {
   position: absolute;
   left: 14.296875%;
@@ -429,6 +456,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .projects-details p { transition: none; }
   .projects-section .project-visual * { animation: none; }
   .folio-streak { left: 15%; max-width: 70%; }
   .personal-scroll {

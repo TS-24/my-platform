@@ -104,9 +104,9 @@ function App() {
                 <p className="personal-handle">@tshin24</p>
               </div>
               <div className="projects-details" data-project-content aria-hidden="true">
-                <p className="personal-state">Senior Project</p>
-                <p className="personal-city">ReStyle</p>
-                <p className="personal-role">Folio</p>
+                <p className="personal-state" data-project="senior">Senior Project</p>
+                <p className="personal-city" data-project="restyle">ReStyle</p>
+                <p className="personal-role" data-project="folio">Folio</p>
                 <p className="personal-role">*</p>
               </div>
               <img src={line262} alt="" className="personal-line personal-line-vertical personal-details-line" />
@@ -117,19 +117,19 @@ function App() {
           <section className="projects-section" data-project-content aria-hidden="true" inert aria-labelledby="projects-heading">
             <h2 id="projects-heading" className="projects-heading">PROJECTS</h2>
             <div className="project-previews">
-              <figure className="project-preview">
+              <figure className="project-preview" data-project="senior" tabIndex={0}>
                 <div className="project-visual senior-visual" aria-hidden="true">
                   <div className="senior-box"><span /></div>
                 </div>
                 <figcaption>Senior Project</figcaption>
               </figure>
-              <figure className="project-preview">
+              <figure className="project-preview" data-project="restyle" tabIndex={0}>
                 <div className="project-visual restyle-visual" aria-hidden="true">
                   {Array.from({ length: 9 }, (_, index) => <span key={index} />)}
                 </div>
                 <figcaption>ReStyle</figcaption>
               </figure>
-              <figure className="project-preview">
+              <figure className="project-preview" data-project="folio" tabIndex={0}>
                 <div className="project-visual folio-visual" aria-hidden="true">
                   {Array.from({ length: 8 }, (_, index) => <span className="folio-streak" key={index} />)}
                 </div>
