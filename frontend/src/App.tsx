@@ -116,7 +116,7 @@ function App() {
               <img src={line48} alt="" className="personal-line personal-portrait-bottom" />
               <img src={line32Vertical} alt="" className="personal-line personal-line-vertical personal-portrait-outer-right" />
               <img src={line32} alt="" className="personal-line personal-portrait-outer-bottom" />
-              <figcaption>In Boston</figcaption>
+              <figcaption>Charlotte NC</figcaption>
             </figure>
             <div className="personal-details">
               <div className="personal-details-copy" data-profile-content>
