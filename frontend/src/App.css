@@ -14,19 +14,49 @@
 #root {
   position: relative;
   isolation: isolate;
-  display: grid;
-  place-items: center;
+  display: block;
   width: 100%;
   max-width: none;
   min-height: 100svh;
   margin: 0;
-  padding: 40px 24px;
+  padding: 0;
   border: 0;
   background: #fff;
   color: #000;
   text-align: left;
   font-family: 'Geist Mono', monospace;
   letter-spacing: normal;
+}
+
+.personal-scroll {
+  --scroll-progress: 0;
+  --projects-progress: 0;
+  --content-growth: 0;
+  --page-gutter: 48px;
+  --card-width: min(960px, calc(100vw - var(--page-gutter)));
+  --card-height: 560px;
+  --scene-height: max(100svh, calc(var(--card-height) + 48px));
+  position: relative;
+  height: calc(var(--scene-height) + 200svh);
+}
+
+.personal-stage {
+  position: sticky;
+  top: 0;
+  display: grid;
+  place-items: center;
+  height: var(--scene-height);
+}
+
+.personal-card {
+  overflow: clip;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: calc(var(--card-width) + (100% - var(--card-width)) * var(--scroll-progress));
+  height: calc(var(--card-height) + (var(--scene-height) - var(--card-height)) * var(--scroll-progress));
+  background: #fff;
+  box-shadow: inset 0 0 0 1px #b4b4b4;
 }
 
 .personal-background {
@@ -62,17 +92,16 @@
   width: 1328px;
 }
 
-.personal-card {
+.personal-card-content {
+  transform: scale(calc(1 + var(--content-growth) * var(--scroll-progress)));
   box-sizing: border-box;
   position: relative;
-  background: #fff;
   display: grid;
   grid-template-columns: minmax(0, 248fr) minmax(0, 352fr) minmax(0, 248fr);
   grid-template-rows: 184px 152px 124px;
-  width: 100%;
+  width: min(960px, calc(100vw - var(--page-gutter)));
   max-width: 960px;
   padding: 40px 56px 60px;
-  box-shadow: inset 0 0 0 1px #b4b4b4;
 }
 
 .personal-portrait {
@@ -218,8 +247,45 @@
   line-height: 36px;
 }
 
+.personal-portrait,
+.personal-name {
+  transform: translateY(calc(-100svh * var(--projects-progress)));
+  opacity: calc(1 - var(--projects-progress));
+}
+
+.personal-details-copy {
+  opacity: calc(1 - var(--projects-progress));
+}
+
+.projects-details {
+  position: absolute;
+  inset: 0;
+  opacity: var(--projects-progress);
+}
+
+.projects-section {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--projects-progress);
+  transform: translateY(calc(60svh * (1 - var(--projects-progress))));
+}
+
+.projects-heading {
+  position: absolute;
+  left: 14.296875%;
+  top: var(--projects-heading-top, 22.355769%);
+  margin: 0;
+  color: #000;
+  font-family: inherit;
+  font-size: clamp(22px, 3.75vw, 48px);
+  font-weight: 400;
+  line-height: 61px;
+  letter-spacing: clamp(6px, 1.875vw, 24px);
+}
+
 @media (max-width: 800px) {
-  .personal-card {
+  .personal-card-content {
     padding-inline: 32px;
   }
   .personal-name {
@@ -229,10 +295,11 @@
 }
 
 @media (max-width: 600px) {
-  #root {
-    padding: 24px 16px;
+  .projects-heading { left: 10%; top: 10%; }
+  .personal-scroll {
+    --page-gutter: 32px;
   }
-  .personal-card {
+  .personal-card-content {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto;
     gap: 36px;
@@ -260,4 +327,17 @@
     grid-area: 4 / 1;
     margin-right: 24px;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .personal-scroll {
+    height: auto;
+  }
+  .personal-stage { position: relative; height: auto; padding-block: 24px; }
+  .personal-card { height: auto; }
+  .personal-portrait,
+  .personal-name,
+  .personal-details-copy { transform: none; opacity: 1; }
+  .projects-details { position: static; margin-top: 24px; opacity: 1; }
+  .projects-section { position: relative; width: 100%; height: 600px; opacity: 1; transform: none; }
 }
