@@ -10,6 +10,15 @@ import './App.css'
 function App() {
   return (
     <>
+      <div className="personal-background" aria-hidden="true">
+        <p className="personal-background-top">CharlotteNorthClar</p>
+        <div className="personal-background-bottom">
+          <p className="personal-state">North Carolina</p>
+          <p className="personal-city">Charlotte</p>
+          <p className="personal-role">CS Student</p>
+          <p className="personal-handle">@tshin24</p>
+        </div>
+      </div>
       <main className="personal-card" aria-labelledby="personal-name">
         <figure className="personal-portrait">
           <div className="personal-portrait-crop">
