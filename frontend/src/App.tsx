@@ -8,7 +8,20 @@ import line32 from './assets/personal-website/line-32.svg'
 import line56 from './assets/personal-website/line-56.svg'
 import './App.css'
 
+type ReportKind = "bug" | "feature";
+type Report = {
+  "id": string,
+  "text": string,
+  "kind": ReportKind
+};
+
 function App() {
+  const initialReports: Report[] = [
+    { id: '1', text: 'Navigation link is broken', kind: 'bug' },
+    { id: '2', text: 'Add dark mode', kind: 'feature' },
+    { id: '3', text: 'Add dark mode', kind: 'feature' },
+  ]
+
   const [folioRunning, setFolioRunning] = useState(false)
   const sceneRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
@@ -74,6 +87,13 @@ function App() {
 
   return (
     <div className="personal-scroll" ref={sceneRef}>
+      <ul hidden>
+        {initialReports.map((report) => (
+          <li>
+            {report.text} ({report.kind})
+          </li>
+        ))}
+      </ul>
       <div className="personal-stage">
         <div className="personal-background" aria-hidden="true">
           <p className="personal-background-top">CharlotteNorthClar</p>
@@ -96,14 +116,14 @@ function App() {
               <img src={line48} alt="" className="personal-line personal-portrait-bottom" />
               <img src={line32Vertical} alt="" className="personal-line personal-line-vertical personal-portrait-outer-right" />
               <img src={line32} alt="" className="personal-line personal-portrait-outer-bottom" />
-              <figcaption>In Boston</figcaption>
+              <figcaption>Charlotte NC</figcaption>
             </figure>
             <div className="personal-details">
               <div className="personal-details-copy" data-profile-content>
-                <p className="personal-state">North Carolina</p>
-                <p className="personal-city">Charlotte</p>
-                <p className="personal-role">CS Student</p>
-                <p className="personal-handle">@tshin24</p>
+                <p className="personal-state">Projects</p>
+                <p className="personal-city">Writing</p>
+                <p className="personal-role">About</p>
+                <p className="personal-handle">*</p>
               </div>
               <div className="projects-details" data-project-content aria-hidden="true">
                 <p className="personal-state" data-project="senior">Senior Project</p>
@@ -148,9 +168,6 @@ function App() {
                 <figcaption>Folio</figcaption>
               </figure>
             </div>
-          </section>
-          <section>
-            {}
           </section>
         </main>
       </div>
