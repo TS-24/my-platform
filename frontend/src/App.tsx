@@ -116,6 +116,26 @@ function App() {
           </div>
           <section className="projects-section" data-project-content aria-hidden="true" inert aria-labelledby="projects-heading">
             <h2 id="projects-heading" className="projects-heading">PROJECTS</h2>
+            <div className="project-previews">
+              <figure className="project-preview">
+                <div className="project-visual senior-visual" aria-hidden="true">
+                  <div className="senior-box"><span /></div>
+                </div>
+                <figcaption>Senior Project</figcaption>
+              </figure>
+              <figure className="project-preview">
+                <div className="project-visual restyle-visual" aria-hidden="true">
+                  {Array.from({ length: 9 }, (_, index) => <span key={index} />)}
+                </div>
+                <figcaption>ReStyle</figcaption>
+              </figure>
+              <figure className="project-preview">
+                <div className="project-visual folio-visual" aria-hidden="true">
+                  {Array.from({ length: 8 }, (_, index) => <span className="folio-streak" key={index} />)}
+                </div>
+                <figcaption>Folio</figcaption>
+              </figure>
+            </div>
           </section>
         </main>
       </div>

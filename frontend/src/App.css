@@ -284,6 +284,88 @@
   letter-spacing: clamp(6px, 1.875vw, 24px);
 }
 
+.project-previews {
+  position: absolute;
+  left: 46%;
+  transform: translateX(-50%);
+  top: 40%;
+  width: 48%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 88px;
+}
+
+.project-preview { min-width: 0; margin: 0; }
+
+.project-preview figcaption {
+  margin-top: 22px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: 0;
+  color: #0009;
+}
+
+.project-visual {
+  height: 160px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: #0008;
+}
+
+.senior-box {
+  display: grid;
+  place-items: center;
+  width: 72%;
+  aspect-ratio: 1;
+  max-width: 112px;
+  border: 1px solid #0005;
+}
+
+.senior-box span { position: relative; width: 22px; height: 22px; }
+.senior-box span::before,
+.senior-box span::after {
+  content: '';
+  position: absolute;
+  background: currentColor;
+}
+.senior-box span::before { width: 22px; height: 1px; top: 10.5px; }
+.senior-box span::after { width: 1px; height: 22px; left: 10.5px; }
+
+.restyle-visual { gap: 9%; }
+.restyle-visual > span {
+  width: 1px;
+  height: 72%;
+  background: #0006;
+  transform-origin: center;
+}
+.restyle-visual > span:nth-child(3n) { height: 95%; }
+.restyle-visual > span:nth-child(3n + 1) { height: 60%; }
+
+.folio-visual { container-type: inline-size; }
+
+.folio-streak {
+  position: absolute;
+  left: 15%;
+  top: 12%;
+  width: 74px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #0009);
+}
+.folio-streak:nth-child(2) { top: 23%; width: 42px; }
+.folio-streak:nth-child(3) { top: 34%; width: 96px; }
+.folio-streak:nth-child(4) { top: 45%; width: 58px; }
+.folio-streak:nth-child(5) { top: 56%; width: 86px; }
+.folio-streak:nth-child(6) { top: 67%; width: 35px; }
+.folio-streak:nth-child(7) { top: 78%; width: 64px; }
+.folio-streak:nth-child(8) { top: 89%; width: 90px; }
+
+
 @media (max-width: 800px) {
   .personal-card-content {
     padding-inline: 32px;
@@ -296,6 +378,9 @@
 
 @media (max-width: 600px) {
   .projects-heading { left: 10%; top: 10%; }
+  .project-previews { top: 21%; left: 50%; width: 80%; gap: 36px; }
+  .project-visual { height: 100px; }
+  .project-preview figcaption { margin-top: 12px; }
   .personal-scroll {
     --page-gutter: 32px;
   }
@@ -330,6 +415,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .folio-streak { left: 15%; max-width: 70%; }
   .personal-scroll {
     height: auto;
   }
