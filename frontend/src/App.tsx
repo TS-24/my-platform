@@ -6,6 +6,14 @@ import line48 from './assets/personal-website/line-48.svg'
 import line32Vertical from './assets/personal-website/line-32-vertical.svg'
 import line32 from './assets/personal-website/line-32.svg'
 import line56 from './assets/personal-website/line-56.svg'
+import { useEffect, useRef, useState } from 'react'
+import portrait from './assets/personal-website/portrait.png'
+import line96 from './assets/personal-website/line-96.svg'
+import line262 from './assets/personal-website/line-262.svg'
+import line48 from './assets/personal-website/line-48.svg'
+import line32Vertical from './assets/personal-website/line-32-vertical.svg'
+import line32 from './assets/personal-website/line-32.svg'
+import line56 from './assets/personal-website/line-56.svg'
 import './App.css'
 
 type ReportKind = 'bug' | 'feature'
@@ -167,6 +175,7 @@ function App() {
           </section>
         </main>
       </div>
+    </div>
     </div>
   )
 }
