@@ -6,6 +6,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Geist Serif';
+  src: url('./assets/personal-website/geist-serif-regular.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light;
   background: #fff;
@@ -56,7 +64,7 @@
   width: calc(var(--card-width) + (100% - var(--card-width)) * var(--scroll-progress));
   height: calc(var(--card-height) + (var(--scene-height) - var(--card-height)) * var(--scroll-progress));
   background: #fff;
-  box-shadow: inset 0 0 0 1px #b4b4b4;
+  box-shadow: inset 0 0 0 1px rgb(180 180 180 / calc(1 - var(--scroll-progress)));
 }
 
 .personal-background {
@@ -271,7 +279,7 @@
   transform: translateY(calc(60svh * (1 - var(--projects-progress))));
 }
 
-.projects-section[aria-hidden='false'] .project-visual {
+.projects-section[aria-hidden='false'] .project-preview {
   pointer-events: auto;
 }
 
@@ -288,13 +296,13 @@
 .projects-details .personal-state { opacity: .3; }
 .projects-details .personal-city { opacity: .5; }
 
-.personal-card:has(.project-visual:hover, .project-preview:focus-visible) .projects-details p {
+.personal-card:has(.project-preview:hover, .project-preview:focus-visible, .projects-details [data-project]:hover) .projects-details p {
   opacity: .2;
 }
 
-.personal-card:has([data-project='senior'] .project-visual:hover, .project-preview[data-project='senior']:focus-visible) .projects-details [data-project='senior'],
-.personal-card:has([data-project='restyle'] .project-visual:hover, .project-preview[data-project='restyle']:focus-visible) .projects-details [data-project='restyle'],
-.personal-card:has([data-project='folio'] .project-visual:hover, .project-preview[data-project='folio']:focus-visible) .projects-details [data-project='folio'] {
+.personal-card:has(.project-preview[data-project='senior']:hover, .project-preview[data-project='senior']:focus-visible, .projects-details [data-project='senior']:hover) .projects-details [data-project='senior'],
+.personal-card:has(.project-preview[data-project='restyle']:hover, .project-preview[data-project='restyle']:focus-visible, .projects-details [data-project='restyle']:hover) .projects-details [data-project='restyle'],
+.personal-card:has(.project-preview[data-project='folio']:hover, .project-preview[data-project='folio']:focus-visible, .projects-details [data-project='folio']:hover) .projects-details [data-project='folio'] {
   opacity: 1;
 }
 
@@ -304,7 +312,7 @@
   top: var(--projects-heading-top, 22.355769%);
   margin: 0;
   color: #000;
-  font-family: inherit;
+  font-family: 'Geist Serif', serif;
   font-size: clamp(22px, 3.75vw, 48px);
   font-weight: 400;
   line-height: 61px;
@@ -346,12 +354,43 @@
 }
 
 .senior-box {
+  position: relative;
+  transition: color 450ms ease, border-color 450ms ease, border-width 450ms ease;
   display: grid;
   place-items: center;
   width: 72%;
   aspect-ratio: 1;
   max-width: 112px;
   border: 1px solid #0005;
+}
+
+.senior-box::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  padding: 1px;
+  background: linear-gradient(115deg, transparent 40%, #fff 50%, transparent 60%);
+  background-size: 300% 300%;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 150ms ease, padding 450ms ease, inset 450ms ease;
+  pointer-events: none;
+}
+
+.personal-card:has(.projects-details [data-project='senior']:hover) .senior-box::after,
+.project-preview:is(:hover, :focus-visible) .senior-box::after {
+  opacity: 1;
+  inset: -2px;
+  padding: 2px;
+  animation: senior-glimmer 2s linear infinite;
+}
+
+.personal-card:has(.projects-details [data-project='senior']:hover) .senior-box,
+.project-preview:is(:hover, :focus-visible) .senior-box {
+  color: #000;
+  border-color: #000c;
+  border-width: 2px;
 }
 
 .senior-box span { position: relative; width: 22px; height: 22px; }
@@ -366,17 +405,31 @@
 
 .restyle-visual { gap: 9%; }
 .restyle-visual > span {
-  width: 1px;
-  height: 72%;
+  flex: 0 0 3px;
+  width: 3px;
+  height: 60%;
   background: #0006;
   transform-origin: center;
-  animation: restyle-wave 3.8s cubic-bezier(.45, 0, .55, 1) infinite alternate;
+  animation: restyle-wave 3.8s cubic-bezier(.45, 0, .55, 1) infinite alternate paused;
 }
-.restyle-visual > span:nth-child(3n) { animation-delay: -1.5s; height: 95%; }
-.restyle-visual > span:nth-child(3n + 1) { animation-delay: -2.7s; height: 60%; }
+.restyle-visual > span:nth-child(3n) { animation-delay: -1.5s; height: 72%; }
+.restyle-visual > span:nth-child(3n + 1) { animation-delay: -2.7s; height: 45%; }
 .restyle-visual > span:nth-child(even) { animation-duration: 4.8s; }
 
-.folio-visual { container-type: inline-size; }
+.folio-visual {
+  container-type: inline-size;
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+
+.personal-card:has(.projects-details [data-project='folio']:hover) .folio-visual,
+.project-preview:is(:hover, :focus-visible) .folio-visual {
+  opacity: 1;
+}
+
+.project-preview[data-running='true'] .folio-streak {
+  animation-play-state: running;
+}
 
 .folio-streak {
   position: absolute;
@@ -385,7 +438,8 @@
   width: 74px;
   height: 1px;
   background: linear-gradient(90deg, transparent, #0009);
-  animation: folio-travel 1.8s linear infinite;
+  animation: folio-travel 1.8s linear infinite paused;
+  animation-delay: -.9s;
 }
 .folio-streak:nth-child(2) { top: 23%; width: 42px; animation-duration: 1.2s; animation-delay: -.8s; }
 .folio-streak:nth-child(3) { top: 34%; width: 96px; animation-duration: 2.4s; animation-delay: -1.6s; }
@@ -395,11 +449,25 @@
 .folio-streak:nth-child(7) { top: 78%; width: 64px; animation-duration: 1.7s; animation-delay: -1.1s; }
 .folio-streak:nth-child(8) { top: 89%; width: 90px; animation-duration: 2.3s; animation-delay: -.4s; }
 
+.personal-card:has(.projects-details [data-project='restyle']:hover) .restyle-visual *,
+.personal-card:has(.projects-details [data-project='folio']:hover) .folio-visual *,
+.personal-card:has(.projects-details [data-project='senior']:hover) .senior-box::after,
+.project-preview:is(:hover, :focus-visible) .project-visual *,
+.personal-card:has(.projects-details [data-project='senior']:hover) .senior-box::after,
+.project-preview:is(:hover, :focus-visible) .senior-box::after {
+  animation-play-state: running;
+}
+
+@keyframes senior-glimmer {
+  0% { background-position: 75% 75%; }
+  100% { background-position: 0% 0%; }
+}
+
 .projects-section[aria-hidden='true'] .project-visual * { animation-play-state: paused; }
 
 @keyframes restyle-wave {
-  from { transform: translateY(12px) scaleY(.35); opacity: .45; }
-  to { transform: translateY(-8px) scaleY(1); opacity: 1; }
+  from { transform: translateY(18px); opacity: .55; }
+  to { transform: translateY(-18px); opacity: 1; }
 }
 
 @keyframes folio-travel {
@@ -457,7 +525,11 @@
 
 @media (prefers-reduced-motion: reduce) {
   .projects-details p { transition: none; }
-  .projects-section .project-visual * { animation: none; }
+  .projects-section .project-visual *,
+  .projects-section .senior-box::after { animation: none; }
+  .senior-box { transition: none; }
+  .folio-visual { opacity: 1; transition: none; }
+  .senior-box::after { display: none; }
   .folio-streak { left: 15%; max-width: 70%; }
   .personal-scroll {
     height: auto;

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import portrait from './assets/personal-website/portrait.png'
 import line96 from './assets/personal-website/line-96.svg'
 import line262 from './assets/personal-website/line-262.svg'
@@ -9,6 +9,7 @@ import line56 from './assets/personal-website/line-56.svg'
 import './App.css'
 
 function App() {
+  const [folioRunning, setFolioRunning] = useState(false)
   const sceneRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
 
@@ -106,7 +107,7 @@ function App() {
               <div className="projects-details" data-project-content aria-hidden="true">
                 <p className="personal-state" data-project="senior">Senior Project</p>
                 <p className="personal-city" data-project="restyle">ReStyle</p>
-                <p className="personal-role" data-project="folio">Folio</p>
+                <p className="personal-role" data-project="folio" onPointerEnter={() => setFolioRunning(true)}>Folio</p>
                 <p className="personal-role">*</p>
               </div>
               <img src={line262} alt="" className="personal-line personal-line-vertical personal-details-line" />
@@ -129,8 +130,18 @@ function App() {
                 </div>
                 <figcaption>ReStyle</figcaption>
               </figure>
-              <figure className="project-preview" data-project="folio" tabIndex={0}>
-                <div className="project-visual folio-visual" aria-hidden="true">
+              <figure className="project-preview" data-project="folio" data-running={folioRunning} onPointerEnter={() => setFolioRunning(true)} tabIndex={0} onFocus={() => setFolioRunning(true)}>
+                <div
+                  className="project-visual folio-visual"
+                  aria-hidden="true"
+                  onPointerEnter={() => setFolioRunning(true)}
+                  onTransitionEnd={event => {
+                    if (event.target === event.currentTarget && event.propertyName === 'opacity'
+                      && getComputedStyle(event.currentTarget).opacity === '0') {
+                      setFolioRunning(false)
+                    }
+                  }}
+                >
                   {Array.from({ length: 8 }, (_, index) => <span className="folio-streak" key={index} />)}
                 </div>
                 <figcaption>Folio</figcaption>
